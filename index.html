@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudBook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Lexend', sans-serif;
+        }
+        .backdrop-blur-md { backdrop-filter: blur(12px); }
+        .post-options-menu { display: none; }
+        .post-options-btn:focus + .post-options-menu,
+        .post-options-btn:focus-within + .post-options-menu,
+        .post-options-menu:hover { display: block; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="text-gray-200">
+    <nav class="bg-gray-900/60 backdrop-blur-md shadow-lg fixed top-0 left-0 right-0 z-10 h-16 flex items-center">
+        <div class="container mx-auto px-6 w-full flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a class="text-2xl font-bold text-white hover:text-blue-400 flex items-center gap-2 transition-all duration-300" href="/">
+                    <i class="fa-solid fa-comments text-blue-500"></i>
+                    <span class="hidden md:block">CloudBook</span>
+                </a>
+                <div class="relative hidden md:block">
+                    <span class="absolute left-3 top-2.5 text-gray-400"><i class="fa-solid fa-search"></i></span>
+                    <input type="text" placeholder="Tìm kiếm..." class="bg-gray-700 text-gray-200 w-60 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div class="flex items-center gap-2" id="top-nav-profile">
+                </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 pt-24 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <aside class="lg:col-span-1 hidden lg:block">
+                <div class="sticky top-20 space-y-4">
+                    <div id="left-sidebar-profile"></div>
+                    
+                    <nav class="bg-gray-800/60 backdrop-blur-md p-4 rounded-2xl shadow-xl">
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="/" class="flex items-center gap-3 px-3 py-2 text-blue-400 font-semibold bg-blue-900/50 rounded-lg transition-all duration-300">
+                                    <i class="fa-solid fa-house w-5 text-center"></i> Bảng tin
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-700/50 hover:text-white rounded-lg transition-all duration-300">
+                                    <i class="fa-solid fa-users w-5 text-center"></i> Bạn bè
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-700/50 hover:text-white rounded-lg transition-all duration-300">
+                                    <i class="fa-solid fa-video w-5 text-center"></i> Videos
+                                </a>
+                            </li>
+                            <li>
+                                <button id="logout-btn" class="w-full flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-900/50 hover:text-red-300 rounded-lg transition-all duration-300">
+                                    <i class="fa-solid fa-right-from-bracket w-5 text-center"></i> Đăng xuất
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="bg-gray-800/60 backdrop-blur-md p-4 rounded-2xl shadow-xl">
+                        <p class="text-xs text-gray-400 mb-2">Được tài trợ</p>
+                        <a href="#" class="group transition-all duration-300">
+                            <img src="https://placehold.co/300x200/2563EB/FFFFFF?text=Quang+Cao" class="rounded-lg object-cover mb-3 group-hover:opacity-80 transition-all duration-300" alt="Ad">
+                            <p class="font-semibold text-white group-hover:underline">Học Azure Cloud ngay!</p>
+                            <p class="text-sm text-gray-400">Khóa học Cloud Computing PTIT.</p>
+                        </a>
+                    </div>
+
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-gray-800/60 backdrop-blur-md p-6 rounded-2xl shadow-xl">
+                    <h2 class="text-xl font-semibold mb-4 text-white">Tạo bài viết mới</h2>
+                    <form id="create-post-form">
+                        <textarea id="post-content" class="w-full bg-gray-700 text-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Bạn đang nghĩ gì?"></textarea>
+                        <div class="flex justify-between items-center mt-4">
+                            <input type="file" id="post-media" accept="image/*, video/*" class="text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                            <button type="submit" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-105">
+                                <i class="fa-solid fa-paper-plane"></i> Đăng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div id="news-feed" class="space-y-6">
+                    </div>
+            </div>
+
+            <aside class="lg:col-span-1 hidden lg:block">
+                <div id="sidebar-content" class="sticky top-20 space-y-6"> 
+                    </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <div id="chat-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg flex flex-col" style="height: 70vh;">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+                <h3 id="chat-with-name" class="text-lg font-bold text-white"></h3>
+                <button id="close-chat-btn" class="text-gray-400 hover:text-white text-3xl leading-none transition-all duration-300">×</button>
+            </div>
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto"></div>
+            <div class="p-4 border-t border-gray-700">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-1 bg-gray-700 text-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tin nhắn..." autocomplete="off">
+                    <button type="submit" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-105">
+                         <i class="fa-solid fa-paper-plane"></i> Gửi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+    <div id="edit-post-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg flex flex-col">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+                <h3 class="text-lg font-bold text-white">Chỉnh sửa bài viết</h3>
+                <button id="close-edit-modal-btn" class="text-gray-400 hover:text-white text-3xl leading-none transition-all duration-300">×</button>
+            </div>
+            <div class="p-4">
+                <form id="edit-post-form">
+                    <textarea id="edit-post-content" class="w-full h-40 bg-gray-700 text-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    <div class="flex justify-end gap-4 mt-4">
+                        <button type="button" id="cancel-edit-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-105">Hủy</button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:scale-105">Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
